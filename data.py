@@ -16,7 +16,7 @@ def readData(filename):
         for line in f:
             marketbasket = [int(i) for i in line.split(',')]
             marketbasket.pop(0)             # remove receipt id
-            itemsets.append(frozenset(line))
+            itemsets.append(frozenset(marketbasket))
 
     f.close()
     return itemsets
