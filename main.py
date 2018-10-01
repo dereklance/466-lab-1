@@ -79,16 +79,39 @@ def apriori(T, I, minSup):
 # Ouput:    A skyline collection of frequent itemsets of F          (dict)
 #           i.e. removes all sets in F that are a subset of another set in F
 def skylineFrequentItemsets(F):
-    keysT = list(F.keys())
+
+    """
+    Copy all itemsets in F into 2 new structures
+    For each itemset in the first copy
+        if it is subset of any other itemset
+            remove it from the second copy
+
+    for each itemset in the second copy
+        Copy it into the new dict and store its support as the value
+
+    return new dict
+
+    """
+
+
+    keysT = list(F.keys()).copy()
     keys = keysT.copy()
+    #print(keysT)
+    #print(keys)
+
     fD = {}
     for itmsetA in keys:
         #print("OUTER: {}".format(itmsetA))
         for itmsetB in keys:
             #print("\tINNER: {}".format(itmsetB))
             if not (itmsetA == itmsetB) and itmsetA.issubset(itmsetB):
-                keysT.remove(itmsetA)
+                #print("\t\tREMOVING {} ".format(itmsetA))
+                if itmsetA in keysT:
+                    keysT.remove(itmsetA)
+        #print(">>{}".format(keysT))
 
+    #print(keysT)
+    #rint(keys)
     for skyline in keysT:
         fD[skyline] = F[skyline]
 
@@ -102,26 +125,49 @@ def support(T, items):
     numBaskets = 0
     for marketbasket in T:
         if items.issubset(marketbasket):
+            #print("{} IN {}".format(items, marketbasket))
             numBaskets += 1
-    return numBaskets / len(T)
+    return (numBaskets / len(T))
 
+def getCont():
+    c = input("\nContinue? Y / N\n\t")
+    if c.lower() == 'y':
+        return True
+    else:
+        return False
 
 def main():
 
-	minSup = float(input("Enter minimum support value: "))
-	minConf = float(input("Enter minimum confidence value: "))
-	file = input("Enter data filename to use: ")
+    cont = True
 
-	print("\nRunning association rules mining on\n\n\t" +
-	 		" {} with a minSup of {} and a minConf of {}".format(file, minSup, minConf))
+    while cont:
 
-	T = data.readData(file)
 
-	fqItmsets = apriori(T, range(5), minSup)
+        minSup = float(input("Enter minimum support value: "))
+        minConf = float(input("Enter minimum confidence value: "))
+        file = input("Enter data filename to use: ")
 
-	print("\n\nFrequent itemsets: ")
-	tests.printItemsets(fqItmsets)
+        print("\nRunning association rules mining on\n\n\t{} with a minSup of\t{}\t and a minConf of\t{}".format(file, minSup, minConf))
 
+        T = data.readDataInput(file)
+        goods = data.buildGoods("goods.csv")
+
+        fqItmsets = apriori(T, range(50), minSup)
+        skyFQ = skylineFrequentItemsets(fqItmsets)
+
+        writeFile = input("\n\nFilename to write output to: ")
+        with open("{}".format(writeFile), "w") as f:
+            f.write("Frequent itemsets: \n\n")
+
+            for itmset in skyFQ:
+                f.write("< ")
+                for itm in itmset:
+                    f.write(" {} {} ".format(data.foodFlavor(goods, itm), data.foodName(goods, itm)))
+                f.write(" >\t\tSUPPORT: {}\n".format(skyFQ[itmset]))
+
+        cont = getCont()
+
+    return
 
 
 
