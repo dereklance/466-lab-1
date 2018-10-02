@@ -7,7 +7,6 @@
 from itertools import combinations
 import sys
 #import tests
->>>>>>> 5ddacf28d9768a8ec3cc00fbc19c20aa4b0558d9
 import data
 
 # Set F of frequent itemsets of size k
