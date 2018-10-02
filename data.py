@@ -82,3 +82,6 @@ def writeBingoOutput(writeFile, F, I):
 # Output    String flavor of the food with the given id
 def foodFlavor(goods, id):
     return goods[id][0]
+
+def itemName(goods, id):
+    return foodFlavor(goods, id) + ' ' + foodName(goods, id)

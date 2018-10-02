@@ -4,6 +4,7 @@
 # Assignment: 	Lab 1
 # Term:			Fall 2018
 
+from genRules import genRules
 from itertools import combinations
 import sys
 #import tests
@@ -132,6 +133,13 @@ def main():
 
 		fqItmsets = apriori(T, range(len(items)), minSup)
 		skyFQ = skylineFrequentItemsets(fqItmsets)
+
+		rules = genRules(fqItmsets, skyFQ, minConf)
+		for left, right in rules:
+			for itemIndex in left:
+				print(data.itemName(items, itemIndex), end=' ')
+			print('-> ', end='')
+			print(data.itemName(items, right))
 
 		data.writeBakeryOutput(writeFile, skyFQ, items)
 

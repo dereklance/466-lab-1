@@ -1,19 +1,9 @@
 from candidateGen import candidateGen
 
-def genRules(supports, minConfidence):
+def genRules(supports, skylines, minConfidence):
 	rules = set()
-	supports = {
-		frozenset({0, 2, 5}): 0.04,
-		frozenset({0, 2}): 0.06,
-		frozenset({0, 5}): 0.06,
-		frozenset({2, 5}): 0.06,
-		frozenset({5}): 0.06,
-		frozenset({2}): 0.06,
-		frozenset({0}): 0.06
-	}
 
-	print(supports)
-	for itemset in supports.keys():
+	for itemset in skylines:
 		if len(itemset) < 2:
 			continue
 		
