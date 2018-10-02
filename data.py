@@ -15,7 +15,7 @@ def readDataInput(filename):
     with open("{}".format(filename)) as f:
         for line in f:
             marketbasket = [int(i) for i in line.split(',')]
-            marketbasket.pop(0)             # remove receipt id
+            marketbasket.pop(0)             # remove id
             itemsets.append(frozenset(marketbasket))
 
     f.close()
@@ -40,10 +40,42 @@ def buildGoods(filename):
     f.close()
     return goods
 
+def buildAuthors(filename):
+    authors = []
+
+    with open("{}".format(filename)) as f:
+
+        for line in f:
+            l =[i.strip('\n') for i in line.split(' | ')]
+            authors.append(l[1])
+
+    f.close()
+    return authors
+
 # input     List of goods with names and flavors stored and the good id
 # Output    String name of the food with the given id
 def foodName(goods, id):
     return goods[id][1]
+
+def writeBakeryOutput(writeFile, F, I):
+    with open("{}".format(writeFile), "w") as f:
+        f.write("Frequent itemsets: \n\n")
+        for itmset in F:
+            f.write("< ")
+            for itm in itmset:
+                f.write(" {} {} ".format(foodFlavor(I, itm), foodName(I, itm)))
+            f.write(" >\t\tSUPPORT: {}\n".format(F[itmset]))
+
+def writeBingoOutput(writeFile, F, I):
+    with open("{}".format(writeFile), "w") as f:
+        f.write("Frequent itemsets: \n\n")
+        for itmset in F:
+            f.write("< ")
+            for itm in itmset:
+                f.write("{}\t".format(I[itm]))
+            f.write(" >\t\tSUPPORT: {}\n".format(F[itmset]))
+
+
 
 
 # input     List of goods with names and flavors stored and the good id
