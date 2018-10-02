@@ -1,0 +1,19 @@
+Frequent itemsets: 
+
+<  Lemon Cake  Lemon Tart  >		SUPPORT: 0.04
+<  Lemon Cookie  Raspberry Lemonade  >		SUPPORT: 0.03
+<  Truffle Cake  Gongolais Cookie  >		SUPPORT: 0.058
+<  Cheese Croissant  Orange Juice  >		SUPPORT: 0.038
+<  Marzipan Cookie  Tuile Cookie  >		SUPPORT: 0.053
+<  Apple Pie  Coffee Eclair  >		SUPPORT: 0.033
+<  Almond Twist  Coffee Eclair  >		SUPPORT: 0.03
+<  Coffee Eclair  Blackberry Tart  >		SUPPORT: 0.031
+<  Lemon Lemonade  Lemon Cookie  >		SUPPORT: 0.031
+<  Lemon Cookie  Raspberry Cookie  >		SUPPORT: 0.033
+<  Lemon Lemonade  Raspberry Cookie  >		SUPPORT: 0.031
+<  Bottled Water  Berry Tart  >		SUPPORT: 0.034
+<  Napoleon Cake  Strawberry Cake  >		SUPPORT: 0.049
+<  Chocolate Cake  Casino Cake  Chocolate Coffee  >		SUPPORT: 0.038
+<  Apricot Croissant  Blueberry Tart  Hot Coffee  >		SUPPORT: 0.032
+<  Opera Cake  Cherry Tart  Apricot Danish  >		SUPPORT: 0.038
+<  Cherry Soda  Apple Danish  Apple Tart  Apple Croissant  >		SUPPORT: 0.031
