@@ -6,7 +6,7 @@
 
 from itertools import combinations
 import sys
-import tests
+#import tests
 import data
 
 # Set F of frequent itemsets of size k
@@ -40,41 +40,43 @@ def candidateGen(F, k):
 def apriori(T, I, minSup):
 
     # Generate frequent itemsets of size 1
-    F = [frozenset({i}) for i in I if support(T, frozenset({i})) >= minSup]
-    frequentItemsets = {}
-    k = 2
-    n = len(T)
+	frequentItemsets = {}
+	F = [frozenset({i}) for i in I if support(T, frozenset({i})) >= minSup]
+	for fq in F:
+		frequentItemsets[fq] = (support(T, fq))
+	k = 2
+	n = len(T)
 
     # While there are still possible candidates
-    while F:
+	while F:
 
-        # Set up working copy of gen k frequent itemsets and get the candidates
+    	# Set up working copy of gen k frequent itemsets and get the candidates
         # Initialize the counts for each generated candidate
-        f = set(F)
-        candidates = candidateGen(f, k-1)
-        count = [0 for i in range(len(candidates))]
+		f = set(F)
+		candidates = candidateGen(f, k-1)
+		count = [0 for i in range(len(candidates))]
 
-        # Calculate the number of occurences of each generated candidate in
-        # the overall market basket data
-        for marketbasket in T:
-            for i, candidate in enumerate(candidates):
-                if candidate.issubset(marketbasket):
-                    count[i] += 1
+		# Calculate the number of occurences of each generated candidate in
+		# the overall market basket data
+		for marketbasket in T:
+			for i, candidate in enumerate(candidates):
+				if candidate.issubset(marketbasket):
+					count[i] += 1
 
         # Set F to be all candidates in the current gen s.t. the support of the
         # candidate is greater than or equal to the specified minimum support
         # value
-        F = [candidate for i, candidate in enumerate(candidates) if (count[i] / n) >= minSup ]
+		F = [candidate for i, candidate in enumerate(candidates) if (count[i] / n) >= minSup ]
 
 
         # Add gen k to the master frequentItemsets dict with its support value
         # and increment the gen counter, k
-        for fq in F:
-            frequentItemsets[fq] = (support(T, fq))
-        k += 1
+		for fq in F:
+			frequentItemsets[fq] = (support(T, fq))
+		k += 1
 
 
-    return frequentItemsets
+	return frequentItemsets
 
 # Input:    Collection of frequent itemsets, F                      (dict)
 # Ouput:    A skyline collection of frequent itemsets of F          (dict)
